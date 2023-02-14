@@ -31,6 +31,6 @@ main {
     min-height: calc(100vh - 150px);
   }
 
-  .td{
-    width: 50%;
+td{
+    width: 100%;
   }
