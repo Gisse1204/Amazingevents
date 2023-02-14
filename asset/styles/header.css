@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: url(../img/Fondo.png);
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.logo{
+    width: 30%;
+    object-fit: cover;
+}
+
+.eventos{
+    width: 100%;
+}
+
+.boton {
+    width: 100%;
+}
+
+.fotos{
+    object-fit: cover;
+}
+
+main {
+    min-height: calc(100vh - 150px);
+  }
+
+  .td{
+    width: 50%;
+  }
