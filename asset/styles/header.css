@@ -5,7 +5,7 @@
 }
 
 body{
-    background: url(../img/Fondo.png);
+    background: url(../img/Fondo2.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -36,4 +36,8 @@ main {
 
 td{
     width: 100%;
+}
+
+.text-category{
+    -webkit-text-stroke: 1px rgb(197, 0, 0);
 }
