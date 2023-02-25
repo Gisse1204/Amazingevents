@@ -1,6 +1,6 @@
-let data = {
-  currentDate: "2022-01-01",
-  events: [
+let data = { //es un objeto
+  currentDate: "2022-01-01", //es una propiedad de fecha
+  events: [ //es un array de objetos
     {
         _id: 1,
         image:"https://i.postimg.cc/Fs03hQDt/Collectivities-Party.jpg",
