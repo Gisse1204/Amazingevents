@@ -30,37 +30,11 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">Upcoming Events</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Cinema</a></li>
-                                    <li><a class="dropdown-item" href="#">Music Concert</a></li>
-                                    <li><a class="dropdown-item" href="#">Museum Tour</a></li>
-                                    <li><a class="dropdown-item" href="#">Marathon</a></li>
-                                    <li><a class="dropdown-item" href="#">Food Fair</a></li>
-                                    <li><a class="dropdown-item" href="#">Costume Party</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Upcoming Events</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Upcoming Events</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="./eventsp.html" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">Past Events</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Cinema</a></li>
-                                    <li><a class="dropdown-item" href="#">Music Concert</a></li>
-                                    <li><a class="dropdown-item" href="#">Museum Tour</a></li>
-                                    <li><a class="dropdown-item" href="#">Marathon</a></li>
-                                    <li><a class="dropdown-item" href="#">Food Fair</a></li>
-                                    <li><a class="dropdown-item" href="#">Costume Party</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="./eventsp.html">Past Events</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./eventsp.html">Past Events</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="./contact.html">Contact</a>
@@ -94,33 +68,39 @@
 
     <main class="flex-grow-1">
         <div class="d-flex navbar justify-content-evenly h4 pb-2 mb-4 text-danger border-bottom border-danger strong">
-            <div class="form-check form-check-inline">
+            <div id="inlineCheckbox">
+                <!-- <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox1">Category</label>
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox1">Music Concert</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox2">Category</label>
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox2">Book Exchange</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox3">Category</label>
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox3">Cinema</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox4">Category</label>
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox4">Museum</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
-                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox5">Category</label>
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox5">Food Fair</label>
             </div>
-            <form class="d-flex" role="search">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox6">Race</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7">
+                <label class="text-category form-check-label text-light blockquote" for="inlineCheckbox7">Costume Party</label>
+            </div> -->
+            </div>
+
+            <form class="d-flex" role="search" id="search-form">
                 <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-                <button class="boton btn btn-danger" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                        height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg></button>
             </form>
         </div>
 
@@ -240,6 +220,7 @@
         crossorigin="anonymous"></script>
         <script src="./scripts/data.js"></script>
         <script src="./scripts/eventsf.js"></script>
+        <!-- <script src="./scripts/details.js"></script> -->
 
 </body>
 
