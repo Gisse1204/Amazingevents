@@ -107,6 +107,6 @@ function updateResults() {
 });
     cardf.innerHTML = cardsDelEvento.join('');
   } else {
-    cardf.innerHTML = '<blockquote class="blockquote text-center strong p-3 text-light">No se encontraron eventos que coincidan con los criterios de búsqueda.</blockquote>';
+    swal("No matches found", "", "warning");
   }
 }

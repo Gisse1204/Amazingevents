@@ -1,7 +1,7 @@
 let eventos = data.events;
-let query = location.search
-let params = new URLSearchParams(query)
-let id_query = Number(params.get('_id'))
+let query = location.search //obtiene la cadena de consulta de la URL
+let params = new URLSearchParams(query) //convierte esta cadena en un objeto
+let id_query = Number(params.get('_id')) //obtiene el valor del parámetro _id como una cadena de texto. Number convierte este valor en un número.
 
 function defineDetails(detalle) { //recibe como parámetro un objeto llamado detalle, y devuelve una cadena de texto que representa una tarjeta de detalles en HTML
   let cardQuantity = "";
@@ -30,10 +30,10 @@ function defineDetails(detalle) { //recibe como parámetro un objeto llamado det
 }
 
 function printDetalle(id,det,array_events) {
-  let container = document.querySelector(id);
-  det = array_events.find(each => each._id === det)
-  let details = defineDetails(det)
-  container.innerHTML = details
+  let container = document.querySelector(id); // obtiene el elemento del DOM con el id especificado y lo guarda en la variable container
+  det = array_events.find(each => each._id === det); // busca el objeto en array_events cuyo _id es igual a det, y lo guarda en la variable det
+  let details = defineDetails(det); // llama a la función defineDetails con el objeto det como parámetro, y guarda su resultado en la variable details
+  container.innerHTML = details; // establece el contenido HTML del elemento container como el valor de la variable details
 }
 
 printDetalle('#cardEvents', id_query, eventos);

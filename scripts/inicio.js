@@ -2,10 +2,10 @@ let eventos = data.events;
 
 /* console.log(eventos); */
 
-let cardsDelEvento = []
+let cardsDelEvento = [] //Se crea una variable cardsDelEvento como una matriz vacía que será utilizada para almacenar todas las cards HTML creadas en el bucle for
 {
-    for (let datos of eventos) {
-        let card = `<div class="card m-2 text-center" style="width:18rem">
+    for (let datos of eventos) { //Un bucle for que itera a través de cada objeto en la matriz eventos. En cada iteración, se crea una card HTML para el evento correspondiente.
+        let card = `<div class="card m-2 text-center" style="width:18rem"> 
                 <img src="${datos.image}" class="fotos card-img-top" style="height:150px" alt="${datos.name}">
                 <div class="card-body d-flex flex-column align-items-center text-center">
                     <h5 class="card-title">${datos.name}</h5>
@@ -15,20 +15,20 @@ let cardsDelEvento = []
                     <small class="text-muted">${datos.price}</small>
                     <a href="./details.html" class="boton btn btn-danger">Details</a>
                 </div>
-            </div>`
-        cardsDelEvento.push(card)
+            </div>` //Crea una variable card que contiene una cadena de texto con la estructura HTML para una card de evento. Los valores dinámicos, como la imagen, el nombre, la descripción, el precio, etc., se toman de las propiedades del objeto datos actual en la iteración.
+        cardsDelEvento.push(card) //Agrega la tarjeta HTML actual a la matriz 
     }
 }
 /* console.log(cardsDelEvento) */
 
-function printEvents() {
+function printEvents() { //busca el elemento HTML con el id cardEvents y lo almacena en la variable card
     let card = document.getElementById('cardEvents');
-    card.innerHTML = cardsDelEvento.join('')
+    card.innerHTML = cardsDelEvento.join('') //establece el contenido del elemento HTML card utilizando la propiedad innerHTML y el método join aplicado al array cardsDelEvento, que concatena todos los elementos del array en una cadena de texto
 }
 
 printEvents()
 
-function defineDetalle(detalle){
+function defineDetalle(detalle){ //Esta función devuelve una cadena de texto que representa una sección de la página de detalles del evento
    return `<div class="card m-2 text-center" style="width:18rem">
                 <img src="${detalle.image}" class="fotos card-img-top" style="height:150px" alt="${detalle.name}">
                 <div class="card-body d-flex flex-column align-items-center text-center">
@@ -42,9 +42,9 @@ function defineDetalle(detalle){
             </div>`
 }
 
-function printDetalles(id,array_data) {
+function printDetalles(id,array_data) { //toma dos parámetros: id que es el identificador del contenedor donde se colocarán las tarjetas y array_data que es un array de objetos que contienen los datos de los eventos
   let container = document.querySelector(id);
-  array_data = array_data.map(defineDetalle)
+  array_data = array_data.map(defineDetalle) //Se utiliza la función map para transformar cada objeto en el array de datos array_data en una cadena de texto que representa una sección de la página de detalles del evento. La función defineDetalle es llamada en cada iteración de map
   container.innerHTML = array_data.join('')
 }
 
@@ -128,7 +128,7 @@ function updateResults() {
     });
     card.innerHTML = cardsDelEvento.join('');
   } else {
-    card.innerHTML = '<blockquote class="blockquote text-center strong p-3 text-light">No se encontraron eventos que coincidan con los criterios de búsqueda.</blockquote>';
+    swal("No matches found", "", "warning");
   }
 }
 
