@@ -31,8 +31,8 @@ function defineDetails(detalle) { //recibe como parámetro un objeto llamado det
 
 function printDetalle(id,det,array_events) {
   let container = document.querySelector(id); // obtiene el elemento del DOM con el id especificado y lo guarda en la variable container
-  det = array_events.find(each => each._id === det); // busca el objeto en array_events cuyo _id es igual a det, y lo guarda en la variable det
-  let details = defineDetails(det); // llama a la función defineDetails con el objeto det como parámetro, y guarda su resultado en la variable details
+  let dato = array_events.find(each => each._id === det); // busca el objeto en array_events cuyo _id es igual a det, y lo guarda en la variable det
+  let details = defineDetails(dato); // llama a la función defineDetails con el objeto det como parámetro, y guarda su resultado en la variable details
   container.innerHTML = details; // establece el contenido HTML del elemento container como el valor de la variable details
 }
 
