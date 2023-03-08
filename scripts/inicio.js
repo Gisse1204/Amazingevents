@@ -129,6 +129,10 @@ function updateResults() {
     card.innerHTML = cardsDelEvento.join('');
   } else {
     swal("No matches found", "", "warning");
+    searchInput.value = ''; // Borra el texto del campo de búsqueda
+    setTimeout(() => {      
+      location.reload(); // Recargar la página
+    }, 2000); // espera 2 segundos antes de recargar la página
   }
 }
 

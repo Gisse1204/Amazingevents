@@ -108,5 +108,9 @@ function updateResults() {
     cardf.innerHTML = cardsDelEvento.join('');
   } else {
     swal("No matches found", "", "warning");
+    searchInput.value = '';
+    setTimeout(() => {      
+      location.reload();
+    }, 2000);
   }
 }
