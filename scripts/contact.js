@@ -14,7 +14,11 @@ function EnviarFormulario() {
         // mostrar un mensaje de éxito en un alert
         swal({
             title: "Message sent successfully!",
-            icon: "success"
+            icon: "success",
+            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
+        }).then(() => {
+            // recargar la página después de cerrar el SweetAlert
+            location.reload();
         });
     } else {
         // mostrar un mensaje de error en un alert
@@ -25,5 +29,3 @@ function EnviarFormulario() {
         });
     }
 }
-
-    // swal("Message sent successfully!", 'succes');  así lo estaría usando como una cadena de texto, está mal
