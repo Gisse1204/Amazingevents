@@ -1,5 +1,5 @@
 function EnviarFormulario() {
-    // obtener los valores del formulario
+    // obtener los valores de los formularios
     let name = document.getElementById('inputName').value;
     let email = document.getElementById('inputEmail').value;
     let message = document.getElementById('inputMessage').value;
