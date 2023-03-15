@@ -23,3 +23,5 @@ function EnviarFormulario() {
         });
     }
 }
+
+    // swal("Message sent successfully!", 'succes');  así lo estaría usando como una cadena de texto, está mal
