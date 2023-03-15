@@ -34,10 +34,20 @@ main {
     min-height: calc(100vh - 150px);
   }
 
-td{
-    width: 100%;
+.form-check-label {
+    text-shadow: 0 0 10px #d64141, 0 0 10px #af2424, 0 0 10px #e9d1d1, 0 0 10px #ffffff;
+    -webkit-text-stroke: 0.7px #000000;
+  }
+
+th, td {
+    border: 1px solid black !important;
 }
 
-.text-category{
-    -webkit-text-stroke: 1px rgb(197, 0, 0);
+th {
+    text-align: center !important;
+}
+
+td{
+    padding-left: 6px;
+    width: 100%;
 }

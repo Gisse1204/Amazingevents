@@ -1,152 +1,54 @@
-let eventos = data.events;
-let query = location.search //obtiene la cadena de consulta de la URL
-let params = new URLSearchParams(query) //convierte esta cadena en un objeto
-let id_query = Number(params.get('_id')) //obtiene el valor del parámetro _id como una cadena de texto. Number convierte este valor en un número.
+async function detalleEvento() { // función asincrónica y puede esperar que devuelva una promesa
+  try {
+  let id = new URLSearchParams(location.search).get("id"); //obtiene el parámetro "id" de la URL actual
+  let response = await fetch(`https://mh.up.railway.app/api/amazing-events/${id}`); //usa la función "fetch" para realizar una solicitud GET a una API externa en una URL que incluye el ID del evento. La palabra clave "await" se utiliza para esperar a que se complete la solicitud antes de continuar
+  let data = await response.json() //extrae los datos de la respuesta de la solicitud en formato JSON y los almacena en una variable llamada "data". La palabra clave "await" se utiliza para esperar a que se complete la conversión de la respuesta a JSON antes de continuar
+  let event = data.response //almacena los detalles del evento en una variable llamada "event". Se asume que la respuesta de la API tiene una propiedad llamada "response" que contiene los datos del evento
+  detalleCard(event); //llama a la función "detalleCard" y le pasa el objeto "event" como argumento. La función "detalleCard" mostrará los detalles del evento en una card
+} catch (error) {
+  console.error(error);
+}
+}
 
-function defineDetails(detalle) { //recibe como parámetro un objeto llamado detalle, y devuelve una cadena de texto que representa una tarjeta de detalles en HTML
+detalleEvento(); //llama a la función "detalleEvento" para iniciar la obtención de detalles del evento tan pronto como la página se carga y se ejecuta el script
+
+function detalleCard(evento) {
+  let fecha = new Date(evento.date);
+  fecha = fecha.toLocaleDateString();
   let cardQuantity = "";
-  if (detalle.assistance) { //se evalúa si la propiedad assistance del objeto detalle existe y tiene un valor. Si es así, se concatena la cadena "Assistance: " con el valor de detalle.assistance y se guarda en la variable cardQuantity
-    cardQuantity += "Assistance: " + detalle.assistance;
+  if (evento.assistance) {
+    cardQuantity += "Assistance: " + evento.assistance;
   }
-  if (detalle.estimate) { //se evalúa si la propiedad estimate del objeto detalle existe y tiene un valor. Si es así, se concatena la cadena "Estimate: " con el valor de detalle.estimate, y si cardQuantity no está vacía, se concatena también la cadena " || " antes de la cadena "Estimate: ". El resultado se guarda en la variable cardQuantity
-    cardQuantity += (cardQuantity ? " || " : "") + "Estimate: " + detalle.estimate; //verifica si ya se ha agregado algún valor a 'cardQuantity' y, si es así, agrega el separador '||'
+  if (evento.estimate) {
+    cardQuantity += (cardQuantity ? " || " : "") + "Estimate: " + evento.estimate;
   }
   let cardDetails = `<div class="card text-center" style="width:30rem">
-    <img src="${detalle.image}" class="fotos card-img-top" style="height:250px" alt="${detalle.name}">
+    <img src="${evento.image}" class="fotos card-img-top" style="height:250px" alt="${evento.name}">
     <div class="card-body">
-      <h3 class="card-title">Name: ${detalle.name}</h3>
-      <p class="card-title">Date: ${detalle.date}</p>
-      <p class="card-title">Description: ${detalle.description}</p>
-      <p class="card-title">Category: ${detalle.category}</p>
-      <p class="card-title">Place: ${detalle.place}</p>
-      <p class="card-title">Capacity: ${detalle.capacity}</p>`;
-  if (cardQuantity) { //se evalúa si la variable cardQuantity no está vacía. Si es así, se agrega un elemento p con la clase "card-title" que contiene el valor de cardQuantity a la cadena de texto cardDetails
+      <h3 class="card-title">Name: ${evento.name}</h3>
+      <p class="card-title">Date: ${fecha}</p>
+      <p class="card-title">Description: ${evento.description}</p>
+      <p class="card-title">Category: ${evento.category}</p>
+      <p class="card-title">Place: ${evento.place}</p>
+      <p class="card-title">Capacity: ${evento.capacity}</p>`;
+  if (cardQuantity) {
     cardDetails += `<p class="card-title">${cardQuantity}</p>`;
-  }
-  cardDetails += `<p class="card-title">Price: ${detalle.price}</p>
+  } cardDetails += `
+      <p class="card-title">Price: ${evento.price}</p>
     </div>
   </div>`;
-  return cardDetails;
+  document.querySelector("#cardEvents").innerHTML = cardDetails;  
 }
 
-function printDetalle(id,det,array_events) {
-  let container = document.querySelector(id); // obtiene el elemento del DOM con el id especificado y lo guarda en la variable container
-  let dato = array_events.find(each => each._id === det); // busca el objeto en array_events cuyo _id es igual a det, y lo guarda en la variable det
-  let details = defineDetails(dato); // llama a la función defineDetails con el objeto det como parámetro, y guarda su resultado en la variable details
-  container.innerHTML = details; // establece el contenido HTML del elemento container como el valor de la variable details
-}
-
-printDetalle('#cardEvents', id_query, eventos);
 
 
 
+//línea 15 Si la propiedad "assistance" existe y tiene un valor, entonces la cadena "Assistance: " seguida del valor de
+//"evento.assistance" se agrega a la variable "cardQuantity" con el operador de concatenación "+=".
+//Si la propiedad "assistance" no existe o es nula, esta línea de código se saltará y no se agregará nada a la variable "cardQuantity".
 
-
-
-
-
-
-/* let minombre = prompt('miNombre');
-console.log(minombre);
-console.log(typeof minombre);
-
-let miapellido = prompt('miApellido');
-console.log(miapellido);
-console.log(typeof miapellido);
-
-let miedad = Number (prompt('miEdad'));
-console.log(miedad);
-console.log(typeof miedad);
-
-let mimascota = prompt('miMascota');
-console.log(mimascota);
-console.log(typeof mimascota);
-
-const edadmascota = Number (prompt('edadMascota'));
-console.log(edadmascota);
-console.log(typeof edadmascota);
-
-let nombrecompleto = "Me llamo " + minombre + " " + miapellido;
-alert(nombrecompleto);
-
-let textoPresentacion = "Me llamo " + minombre + " " + miapellido + ", tengo " + miedad + " años. Mi mascota se llama " + mimascota + " y tiene " + edadmascota + " años";
-alert(textoPresentacion);
-
-let sumaEdades = miedad + edadmascota;
-alert("Nuestras edades suman " + sumaEdades);
-
-let restaEdades = miedad - edadmascota;
-alert("La diferencia de nuestras edades es " + restaEdades);
-
-let productoEdades = miedad * edadmascota;
-alert("El producto de nuestras edades es " + productoEdades);
-
-let divisionEdades = miedad / edadmascota;
-alert("La división de nuestras edades es " + divisionEdades); */
-
-/* let alumno = {
-    nombre: "Gisela",
-    apellido: "Martínez",
-    edad: 39,
-    educacion: "Universitaria",
-    profesion: "Contadora",
-};
-
-console.table(alumno);
-console.log(alumno.nombre);
-console.log(alumno.apellido);
-console.log(alumno.edad);
-console.log(alumno.educacion);
-console.log(alumno.profesion); */
-
-/* let mascota = {
-    nombre: "Becky",
-    apellido: "Martínez",
-    edad: 6,
-    raza: "adoptada",
-    alimento: "carne y verduras",
-};
-
-console.table(mascota);
-console.log(mascota.nombre);
-console.log(mascota.apellido);
-console.log(mascota.edad);
-console.log(mascota.raza);
-console.log(mascota.alimento); */
-
-/* let frutas = ["cereza", "durazno", "banana", "melón", "frutilla",];
-
-console.log(frutas);
-
-let numeros = ["12", "148", "6418", "84589", "659483",];
-
-console.log(numeros);
-
-for (let i = 0; i < numeros.length; i++) {
-    console.log(numeros[i]);
-}
-
-let familia = [
-    {nombre: "Gisela", edad: 39},
-    {nombre: "Juan Manuel", edad: 40},
-    {nombre: "Mariana", edad: 39},
-    {nombre: "Lorena", edad: 39},
-    {nombre: "Julio", edad: 40},
-];
-
-console.log(familia);
-
-for (let i = 0; i < familia.length; i++) {
-    console.log(familia[i]);
-}
-
-let textoAleatorio = 
-familia[4].nombre + 
-" de " + 
-familia[4].edad + 
-" años de edad, ha comido " + 
-numeros[3] + 
-" " + 
-frutas[1];
-
-console.log(textoAleatorio); */
+//línea 18 verifica si el evento tiene un valor para la propiedad estimate. Si evento.estimate es verdadero, entonces agrega
+//la cadena "Estimate: " seguida del valor de evento.estimate a la variable cardQuantity.
+//La parte cardQuantity ? " || " : "" se conoce como un operador ternario. Es una forma abreviada de escribir una instrucción
+//condicional if-else. Aquí, la condición cardQuantity verifica si la variable ya tiene un valor, y si es así, agrega " || "
+//para separar la información del evento previa. Si cardQuantity aún no tiene ningún valor, se establece una cadena vacía "".

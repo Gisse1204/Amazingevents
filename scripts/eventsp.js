@@ -1,117 +1,86 @@
-let eventos = data.events;
-
-let card = (imagen, nombre, descripcion, precio, id) => {
-    return `
-        <div class="card m-2 text-center" style="width:18rem">
-            <img src="${imagen}" class="fotos card-img-top" style="height:150px" alt="${nombre}">
+async function fetchCards() {
+  try {
+    let urlApi = 'https://mh.up.railway.app/api/amazing-events';
+    let response = await fetch(urlApi).then(res => res.json());
+    let printEvents = (cardId, eventsArray) => {
+      let card = document.getElementById(cardId);
+      let cardsDelEvento = eventsArray
+        .filter(event => event.date < response.currentDate)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(event => `
+          <div class="card m-2 text-center" style="width:18rem" class="cardDetails">
+            <img src="${event.image}" class="fotos card-img-top" style="height:150px" alt="${event.name}">
             <div class="card-body d-flex flex-column align-items-center text-center">
-                <h5 class="card-title">${nombre}</h5>
-                <p class="card-text">${descripcion}</p>
+              <h5 class="card-title">${event.name}</h5>
+              <p class="card-text">${event.description}</p>
             </div>
             <div class="card-footer d-flex flex-column align-items-center">
-                <small class="text-muted">${precio}</small>
-                <a href="./details.html?_id=${id}" class="boton btn btn-danger">Details</a>
+              <small class="text-muted">${event.price}</small>
+              <a href="./details.html?id=${event.id}" class="boton btn btn-danger">Details</a>
             </div>
-        </div>
-    `;
-}
+          </div>`
+        );
+      card.innerHTML = cardsDelEvento.join('');
+    };
 
-let currentDate;
-function printPastEvents() {
-    currentDate = data.currentDate;
-    let cardsDelEvento = []
-    
-    for (let datos of eventos) {
-        if(datos.date<currentDate){
-        cardsDelEvento.push(card(datos.image, datos.name, datos.description, datos.price, datos._id));
-        }
-    }    
-    
-    let pasado = document.getElementById('cardEventsp');
-    pasado.innerHTML = cardsDelEvento.join(' ');
-}
+    printEvents('cardEventsp', response.events);
 
-printPastEvents();
+  let categorias = [...new Set(response.events.map(evento => evento.category))];
+  categorias = categorias.sort();
+  let checkboxContainer = document.querySelector('#inlineCheckbox');
+  let updateResults = async () => {
+    try {
+      let response = await fetch(urlApi).then(res => res.json());
+      let events = response.events.filter(event => event.date);
+      let checkedCategories = [...checkboxes].filter(checkbox => checkbox.checked).map(checkbox => checkbox.value.toLowerCase());
+      let searchTerm = searchInput.value.toLowerCase();
+      let filteredEvents = events.filter(event => {
+        return (
+          event.name.toLowerCase().includes(searchTerm) &&
+          (checkedCategories.length === 0 || checkedCategories.includes(event.category.toLowerCase())) && event.date < response.currentDate
+        );
+      });
+      if (filteredEvents.length > 0) {
+        printEvents('cardEventsp', filteredEvents);
+      } else {
+        swal("No matches found", "", "warning");
+        searchInput.value = '';
+        setTimeout(() => location.reload(), 2000);
+      }
+    } catch (error) {
+      console.error('Error al recuperar los datos de la API:', error);
+    }
+  };
 
+  categorias.forEach(categoria => {
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = categoria;
+    checkbox.value = categoria;
+    checkbox.classList.add('form-check-input');
+    checkbox.addEventListener('change', updateResults);
 
-let categorias = [];
+    let label = document.createElement('label');
+    label.htmlFor = categoria;
+    label.textContent = categoria;
+    label.classList.add('form-check-label', 'blockquote');
 
-eventos.forEach((each) => {
-  if (!categorias.includes(each.category)) {
-    categorias.push(each.category);
-  }
-});
+    let div = document.createElement('div');
+    div.classList.add('form-check', 'form-check-inline');
+    div.appendChild(checkbox);
+    div.appendChild(label);
 
-function printcategoria() {
-  let categ = document.querySelector('#inlineCheckbox');
-  categ.innerHTML = categorias.map((category) => {
-    return `
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="${category}" value="${category}">
-        <label class="text-category form-check-label text-light blockquote" for="${category}">${category}</label>
-      </div>
-    `;
-  }).join('');
-}
-
-printcategoria();
-
-// obtener los checkboxes
-let checkboxes = document.querySelectorAll('input[type=checkbox]');
-
-// obtener el elemento de entrada de búsqueda
-let searchInput = document.querySelector('input[type=search]');
-
-// obtener el elemento de contenedor de resultados de búsqueda
-let cardf = document.getElementById('cardEventsp');
-
-// agregar eventListeners a los checkboxes y al elemento de entrada de búsqueda
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener('change', updateResults);
-});
-
-searchInput.addEventListener('input', updateResults);
-
-// función para actualizar los resultados de búsqueda en la página
-function updateResults() {
-  // obtener las categorías seleccionadas
-  let checkedCategories = Array.from(checkboxes)
-    .filter((checkbox) => checkbox.checked)
-    .map((checkbox) => checkbox.value);
-
-  // obtener el término de búsqueda
-  let searchTerm = searchInput.value.toLowerCase();
-
-  // filtrar los eventos por categoría y término de búsqueda
-  let filteredEvents = eventos.filter((event) => {
-    return (
-      event.name.toLowerCase().includes(searchTerm) &&
-      (checkedCategories.length === 0 || checkedCategories.includes(event.category)) && event.date<currentDate
-    );
+    checkboxContainer.appendChild(div);
   });
 
-  // crear el HTML de los eventos filtrados y actualizar el contenido en la página
-  if (filteredEvents.length > 0) {
-    let cardsDelEvento = filteredEvents.map((datos) => {
-      // código para crear el HTML de los eventos
-      return `<div class="card m-2 text-center" style="width:18rem">
-      <img src="${datos.image}" class="fotos card-img-top" style="height:150px" alt="${datos.name}">
-      <div class="card-body d-flex flex-column align-items-center text-center">
-          <h5 class="card-title">${datos.name}</h5>
-          <p class="card-text">${datos.description}</p>
-      </div>
-      <div class="card-footer d-flex flex-column align-items-center">
-          <small class="text-muted">${datos.price}</small>
-          <a href="./details.html?_id=${datos._id}" class="boton btn btn-danger">Details</a>
-      </div>
-  </div>`
-  ;});
-    cardf.innerHTML = cardsDelEvento.join('');
-  } else {
-    swal("No matches found", "", "warning");
-    searchInput.value = '';
-    setTimeout(() => {      
-      location.reload();
-    }, 2000);
-  }
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  let searchInput = document.querySelector('input[type=search]');
+
+  checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateResults));
+  searchInput.addEventListener('input', updateResults);
+} catch (error) {
+  console.error('Error al recuperar los datos de la API:', error);
 }
+}
+
+document.addEventListener('DOMContentLoaded', fetchCards);
